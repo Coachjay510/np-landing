@@ -171,7 +171,15 @@ section { padding:clamp(60px,8vw,120px) clamp(20px,5vw,64px); }
 .step-title { font-family:var(--font-d); font-size:20px; margin-bottom:10px; }
 .step-desc { font-size:14px; color:var(--text2); line-height:1.6; }
 
-/* PRICING */
+/* PRICING TOGGLE */
+.billing-toggle { display:flex; align-items:center; justify-content:center; gap:14px; margin:32px 0 8px; }
+.billing-toggle-track { position:relative; width:52px; height:28px; background:var(--bg3); border:1px solid var(--border2); border-radius:14px; cursor:pointer; transition:background .2s; }
+.billing-toggle-track.yearly { background:var(--green); border-color:var(--green); }
+.billing-toggle-thumb { position:absolute; top:4px; left:4px; width:18px; height:18px; border-radius:50%; background:#fff; transition:left .2s; }
+.billing-toggle-track.yearly .billing-toggle-thumb { left:28px; }
+.billing-label { font-size:13px; font-weight:600; color:var(--text3); transition:color .2s; }
+.billing-label.active { color:var(--text); }
+.billing-save-badge { font-family:var(--font-m); font-size:9px; font-weight:700; letter-spacing:1px; color:var(--green2); background:var(--green-dim); border:1px solid var(--green-mid); padding:3px 8px; border-radius:10px; }
 .tiers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:56px; }
 .tier-card { background:var(--bg2); border:1px solid var(--border2); border-radius:12px; padding:32px 28px; position:relative; overflow:hidden; transition:transform .2s; display:flex; flex-direction:column; }
 .tier-card:hover { transform:translateY(-4px); }
@@ -492,54 +500,74 @@ footer { border-top:1px solid var(--border); padding:32px clamp(20px,5vw,64px); 
     <div class="reveal">
       <div class="section-kicker">Pricing</div>
       <h2 class="section-h2">SIMPLE,<br>TRANSPARENT<br>PRICING</h2>
-      <p class="section-sub">14 days free on every plan. No credit card required. Scale as your org grows.</p>
+      <p class="section-sub">Start free. Upgrade when you're ready. Yearly billing saves you the most.</p>
     </div>
+
+    <!-- Billing Toggle -->
+    <div class="billing-toggle reveal">
+      <span class="billing-label" id="lbl-monthly">Monthly</span>
+      <div class="billing-toggle-track yearly" id="billingToggle" onclick="toggleBilling()">
+        <span class="billing-toggle-thumb"></span>
+      </div>
+      <span class="billing-label active" id="lbl-yearly">Yearly</span>
+      <span class="billing-save-badge">SAVE UP TO 20%</span>
+    </div>
+
     <div class="tiers-grid reveal">
 
+      <!-- ROOKIE (Free) -->
       <div class="tier-card">
-        <div class="tier-name">STARTER</div>
-        <div class="tier-price" style="color:var(--green2);">$29</div>
-        <div class="tier-period">per month</div>
-        <div class="tier-savings">$290/yr — save 2 months</div>
+        <div class="tier-name" style="color:var(--text2);">ROOKIE</div>
+        <div class="tier-price" id="price-rookie" style="color:var(--text);">$0</div>
+        <div class="tier-period">forever free</div>
+        <div class="tier-savings" style="color:var(--text3);">Get started at no cost</div>
         <ul class="tier-features">
-          <li>1 team, up to 15 players</li>
-          <li>Roster + schedule + attendance</li>
-          <li>Payment tracking</li>
-          <li>Basic player profiles</li>
-          <li>Cloud sync + Google SSO</li>
-          <li>Email support</li>
+          <li>1 team, up to 12 players</li>
+          <li>Roster management</li>
+          <li>Basic schedule</li>
+          <li>Google SSO login</li>
+          <li>Player portal (read-only)</li>
+          <li style="color:var(--text3);"><span style="color:var(--text3);margin-right:8px;">✗</span>Payments & finance</li>
+          <li style="color:var(--text3);"><span style="color:var(--text3);margin-right:8px;">✗</span>Stats & recruiting</li>
+          <li style="color:var(--text3);"><span style="color:var(--text3);margin-right:8px;">✗</span>Film Room</li>
         </ul>
-        <button onclick="openTrialModal(event)" class="tier-btn tier-btn-outline">Start Free Trial</button>
+        <button onclick="openTrialModal(event)" class="tier-btn tier-btn-outline">Get Started Free</button>
       </div>
 
+      <!-- VARSITY -->
       <div class="tier-card featured">
-        <div class="tier-name" style="color:var(--green2);">PRO</div>
-        <div class="tier-price" style="color:var(--green2);">$79</div>
-        <div class="tier-period">per month</div>
-        <div class="tier-savings">$790/yr — save 2 months</div>
+        <div class="tier-name" style="color:var(--green2);">VARSITY</div>
+        <div class="tier-price" id="price-varsity" style="color:var(--green2);">$150</div>
+        <div class="tier-period" id="period-varsity">per year</div>
+        <div class="tier-savings" id="savings-varsity">~$12.50/mo · Best for growing orgs</div>
         <ul class="tier-features">
           <li>Up to 4 teams, 60 players</li>
-          <li>Everything in Starter</li>
+          <li>Everything in Rookie</li>
+          <li>Payment tracking</li>
           <li>Stats + recruiting profiles</li>
-          <li>Film Room access</li>
-          <li>Player portal accounts</li>
+          <li>Player portal (full access)</li>
           <li>Budget & finance tools</li>
+          <li>Role-based access</li>
+          <li>Priority email support</li>
         </ul>
         <button onclick="openTrialModal(event)" class="tier-btn tier-btn-solid">Start Free Trial</button>
       </div>
 
+      <!-- PRO -->
       <div class="tier-card">
-        <div class="tier-name" style="color:var(--purple);">ELITE</div>
-        <div class="tier-price" style="color:var(--purple);">$149</div>
-        <div class="tier-period">per month</div>
-        <div class="tier-savings">$1,490/yr — save 2 months</div>
+        <div class="tier-name" style="color:var(--purple);">PRO</div>
+        <div class="tier-price" id="price-pro" style="color:var(--purple);">$350</div>
+        <div class="tier-period" id="period-pro">per year</div>
+        <div class="tier-savings" id="savings-pro">~$29/mo · For serious programs</div>
         <ul class="tier-features">
           <li>Unlimited teams + players</li>
-          <li>Everything in Pro</li>
+          <li>Everything in Varsity</li>
+          <li>Advanced analytics dashboard</li>
           <li>Parent portal</li>
-          <li>Analytics dashboard</li>
-          <li>Priority support</li>
+          <li>Season history & archiving</li>
           <li>Custom branding</li>
+          <li>College recruiting tools</li>
+          <li>Priority phone + email support</li>
         </ul>
         <button onclick="openTrialModal(event)" class="tier-btn tier-btn-outline" style="border-color:rgba(168,85,247,.3);color:var(--purple);">Start Free Trial</button>
       </div>
@@ -553,15 +581,16 @@ footer { border-top:1px solid var(--border); padding:32px clamp(20px,5vw,64px); 
         <strong>NP Film Room Desktop — Add-on</strong>
         <span>Dual-camera editing, live stat logging, shot chart, graphic overlays, and FFmpeg export. Mac now · Windows Q2 2026.</span>
       </div>
-      <div class="filmroom-tier-price">+$20<span style="font-size:13px;font-weight:400;color:var(--text3)">/mo</span></div>
+      <div class="filmroom-tier-price" id="price-filmroom">+$30<span style="font-size:13px;font-weight:400;color:var(--text3)">/yr</span></div>
       <button onclick="openTrialModal(event)" class="filmroom-tier-btn">Add to Plan</button>
     </div>
 
     <p class="reveal" style="text-align:center;margin-top:20px;font-family:var(--font-m);font-size:10px;color:var(--text3);letter-spacing:1px;">
-      All plans include a 14-day free trial · No credit card required · Cancel anytime · Annual billing saves 2 months
+      Free plan available forever · No credit card required · Cancel anytime · Yearly billing saves up to 20%
     </p>
   </div>
 </section>
+
 
 <!-- CTA -->
 <section>
@@ -617,9 +646,10 @@ footer { border-top:1px solid var(--border); padding:32px clamp(20px,5vw,64px); 
         <div class="modal-field">
           <label class="modal-label" for="plan">Interested Plan</label>
           <select class="modal-select" id="plan" name="plan">
-            <option value="Starter">Starter — $29/mo</option>
-            <option value="Pro" selected>Pro — $79/mo (Most Popular)</option>
-            <option value="Elite">Elite — $149/mo</option>
+            <option value="Rookie">Rookie — Free forever</option>
+            <option value="Varsity" selected>Varsity — $150/yr (~$12.50/mo)</option>
+            <option value="Pro">Pro — $350/yr (~$29/mo)</option>
+            <option value="FilmRoom">+ Film Room Add-on — $30/yr</option>
           </select>
         </div>
         <div class="modal-field">
@@ -639,7 +669,38 @@ footer { border-top:1px solid var(--border); padding:32px clamp(20px,5vw,64px); 
 </div>
 
 <script>
-// Scroll progress line
+// Billing toggle
+let isYearly = true
+function toggleBilling() {
+  isYearly = !isYearly
+  const track = document.getElementById('billingToggle')
+  const lblM = document.getElementById('lbl-monthly')
+  const lblY = document.getElementById('lbl-yearly')
+  track.classList.toggle('yearly', isYearly)
+  lblM.classList.toggle('active', !isYearly)
+  lblY.classList.toggle('active', isYearly)
+
+  if (isYearly) {
+    document.getElementById('price-rookie').textContent = '$0'
+    document.getElementById('price-varsity').textContent = '$150'
+    document.getElementById('period-varsity').textContent = 'per year'
+    document.getElementById('savings-varsity').textContent = '~$12.50/mo · Best for growing orgs'
+    document.getElementById('price-pro').textContent = '$350'
+    document.getElementById('period-pro').textContent = 'per year'
+    document.getElementById('savings-pro').textContent = '~$29/mo · For serious programs'
+    document.getElementById('price-filmroom').innerHTML = '+$30<span style="font-size:13px;font-weight:400;color:var(--text3)">/yr</span>'
+  } else {
+    document.getElementById('price-rookie').textContent = '$0'
+    document.getElementById('price-varsity').textContent = '$15'
+    document.getElementById('period-varsity').textContent = 'per month'
+    document.getElementById('savings-varsity').textContent = '$150/yr — save 2 months'
+    document.getElementById('price-pro').textContent = '$32'
+    document.getElementById('period-pro').textContent = 'per month'
+    document.getElementById('savings-pro').textContent = '$350/yr — save with annual'
+    document.getElementById('price-filmroom').innerHTML = '+$3<span style="font-size:13px;font-weight:400;color:var(--text3)">/mo</span>'
+  }
+}
+
 const sline = document.getElementById('sline')
 window.addEventListener('scroll', () => {
   const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight)
