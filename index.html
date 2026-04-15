@@ -619,7 +619,11 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
 <script>
 // ── APP DESTINATIONS ──────────────────────────────────────
 // Update these URLs to match your actual deployed app URLs
-const SUPABASE_URL = 'https://mwefsjrdukmcpijcurqo.supabase.co'
+const SUPABASE_URLS = {
+  manager:     'https://mwefsjrdukmcpijcurqo.supabase.co',
+  tournaments: 'https://qlmdtplswyylpxaabvqa.supabase.co',
+  filmroom:    'https://mwefsjrdukmcpijcurqo.supabase.co',
+}
 
 const APP_REDIRECTS = {
   manager:     'https://delta-dubs.vercel.app',
@@ -677,7 +681,8 @@ async function loadSignInModalSettings() {
 function signInToApp(app, e) {
   if (e) e.preventDefault()
   const redirectTo = APP_REDIRECTS[app]
-  const authUrl = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectTo)}`
+  const supabaseUrl = SUPABASE_URLS[app] || SUPABASE_URLS.manager
+  const authUrl = `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectTo)}`
   window.location.href = authUrl
 }
 
