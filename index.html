@@ -545,7 +545,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
     <div class="app-cards">
 
       <!-- NP Manager -->
-      <a class="app-card" href="#" onclick="signInToApp('manager', event)">
+      <a id="appCard1" class="app-card" href="#" onclick="signInToApp('manager', event)">
         <div class="app-icon-wrap icon-manager">◎</div>
         <div class="app-info">
           <div class="app-name">NP Manager</div>
@@ -556,7 +556,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
       </a>
 
       <!-- NP Tournaments -->
-      <a class="app-card" href="#" onclick="signInToApp('tournaments', event)">
+      <a id="appCard2" class="app-card" href="#" onclick="signInToApp('tournaments', event)">
         <div class="app-icon-wrap icon-tournaments">🏆</div>
         <div class="app-info">
           <div class="app-name">NP Tournaments</div>
@@ -567,7 +567,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
       </a>
 
       <!-- NP Film Room -->
-      <a class="app-card" href="#" onclick="signInToApp('filmroom', event)">
+      <a id="appCard3" class="app-card" href="#" onclick="signInToApp('filmroom', event)">
         <div class="app-icon-wrap icon-filmroom">▶</div>
         <div class="app-info">
           <div class="app-name">NP Film Room</div>
@@ -625,6 +625,53 @@ const APP_REDIRECTS = {
   manager:     'https://delta-dubs.vercel.app',
   tournaments: 'https://np-tournaments.vercel.app/landing',
   filmroom:    'np-filmroom://auth/callback',
+}
+
+async function loadSignInModalSettings() {
+  try {
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13ZWZzanJkdWttY3BpamN1cnFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjYxNDcsImV4cCI6MjA4OTk0MjE0N30.JlTKj7Pt0561M0n-6ZzKFufC04DSDdxna979M4n_RhE'
+    const keys = ['modal_title','modal_subtitle','app1_name','app1_desc','app1_icon','app1_badge','app1_url','app1_enabled','app2_name','app2_desc','app2_icon','app2_badge','app2_url','app2_enabled','app3_name','app3_desc','app3_icon','app3_badge','app3_url','app3_enabled']
+    const res = await fetch(`https://mwefsjrdukmcpijcurqo.supabase.co/rest/v1/platform_settings?key=in.(${keys.join(',')})&select=key,value`, {
+      headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` }
+    })
+    const data = await res.json()
+    if (!Array.isArray(data)) return
+    const map = {}
+    data.forEach(r => { map[r.key] = r.value })
+
+    // Update modal title
+    if (map.modal_title) {
+      const el = document.getElementById('modalTitle')
+      if (el) el.innerHTML = map.modal_title.replace('\n', '<br>')
+    }
+    if (map.modal_subtitle) {
+      const el = document.getElementById('modalSubtitle')
+      if (el) el.textContent = map.modal_subtitle
+    }
+
+    // Update app cards
+    ;[1,2,3].forEach(n => {
+      const card = document.getElementById(`appCard${n}`)
+      if (!card) return
+      if (map[`app${n}_enabled`] === 'false') { card.style.display = 'none'; return }
+      const icon = card.querySelector('.app-icon-wrap')
+      const name = card.querySelector('.app-name')
+      const desc = card.querySelector('.app-desc')
+      const badge = card.querySelector('.app-badge')
+      if (icon && map[`app${n}_icon`]) icon.textContent = map[`app${n}_icon`]
+      if (name && map[`app${n}_name`]) name.textContent = map[`app${n}_name`]
+      if (desc && map[`app${n}_desc`]) desc.textContent = map[`app${n}_desc`]
+      if (badge && map[`app${n}_badge`]) badge.textContent = map[`app${n}_badge`]
+      if (map[`app${n}_url`]) card.dataset.url = map[`app${n}_url`]
+    })
+
+    // Update APP_REDIRECTS dynamically
+    if (map.app1_url) APP_REDIRECTS.manager = map.app1_url
+    if (map.app2_url) APP_REDIRECTS.tournaments = map.app2_url
+    if (map.app3_url) APP_REDIRECTS.filmroom = map.app3_url
+  } catch(e) {
+    console.warn('Could not load sign-in modal settings:', e)
+  }
 }
 
 function signInToApp(app, e) {
@@ -734,6 +781,7 @@ document.getElementById('trialForm').addEventListener('submit', async function(e
     alert('Something went wrong. Please email us at nextplaysports.ca@gmail.com')
   }
 })
+  document.addEventListener("DOMContentLoaded", loadSignInModalSettings)
 </script>
 </body>
 </html>
