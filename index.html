@@ -682,7 +682,7 @@ function signInToApp(app, e) {
   if (e) e.preventDefault()
   const redirectTo = APP_REDIRECTS[app]
   const supabaseUrl = SUPABASE_URLS[app] || SUPABASE_URLS.manager
-  const authUrl = `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectTo)}`
+  const authUrl = `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectTo)}&response_type=token`
   window.location.href = authUrl
 }
 
