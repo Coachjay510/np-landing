@@ -224,6 +224,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
 .modal-success-title{font-family:var(--font-d);font-size:28px;margin-bottom:8px;color:var(--green2)}
 .modal-success-sub{font-size:14px;color:var(--text2);line-height:1.6}
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -682,8 +683,21 @@ function signInToApp(app, e) {
   if (e) e.preventDefault()
   const redirectTo = APP_REDIRECTS[app]
   const supabaseUrl = SUPABASE_URLS[app] || SUPABASE_URLS.manager
-  const authUrl = `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectTo)}&response_type=token`
-  window.location.href = authUrl
+  const anonKeys = {
+    manager:     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13ZWZzanJkdWttY3BpamN1cnFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjYxNDcsImV4cCI6MjA4OTk0MjE0N30.JlTKj7Pt0561M0n-6ZzKFufC04DSDdxna979M4n_RhE',
+    tournaments: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbWR0cGxzd3l5bHB4YWFidnFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMjAwNzksImV4cCI6MjA5MDg5NjA3OX0.rr16fNele1WMYRnrZmdLC445mBwGllesfxZ1bZvxSgA',
+    filmroom:    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13ZWZzanJkdWttY3BpamN1cnFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjYxNDcsImV4cCI6MjA4OTk0MjE0N30.JlTKj7Pt0561M0n-6ZzKFufC04DSDdxna979M4n_RhE',
+  }
+  // Use Supabase createClient to properly handle OAuth state
+  const { createClient } = supabase
+  const client = createClient(supabaseUrl, anonKeys[app])
+  client.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo,
+      skipBrowserRedirect: false,
+    }
+  })
 }
 
 // ── SIGN IN MODAL ─────────────────────────────────────────
