@@ -188,6 +188,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
 .icon-tournaments{background:rgba(92,184,0,.12);border:1px solid rgba(92,184,0,.2)}
 .icon-filmroom{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2)}
 .icon-manager{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2)}
+.icon-players{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.2)}
 .app-info{flex:1}
 .app-name{font-family:var(--font-d);font-size:16px;letter-spacing:.5px;margin-bottom:2px}
 .app-desc{font-size:12px;color:var(--text2)}
@@ -242,9 +243,11 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
     <li><a href="#how">How It Works</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="https://np-tournaments.vercel.app/landing" target="_blank">Tournaments</a></li>
+    <li><a href="#np-players" style="color:var(--orange)">Players ↗</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="nav-login" onclick="openSignInModal()">Sign In</button>
+    <a href="https://np-players.vercel.app" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid rgba(251,146,60,.35);color:#fb923c;font-weight:700;font-size:12px;text-decoration:none;border-radius:4px;transition:all .2s;font-family:var(--font-b);background:rgba(251,146,60,.05);" onmouseover="this.style.borderColor='#fb923c';this.style.background='rgba(251,146,60,.12)'" onmouseout="this.style.borderColor='rgba(251,146,60,.35)';this.style.background='rgba(251,146,60,.05)'">🏀 Player Sign In</a>
+    <button class="nav-login" onclick="openSignInModal()">Org Sign In</button>
     <a href="#" class="nav-cta" onclick="openTrialModal(event)">Start Free Trial →</a>
   </div>
 </nav>
@@ -325,6 +328,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
       <div class="feat-card"><span class="feat-icon">📱</span><div class="feat-title">Player Portal</div><div class="feat-desc">Players sign in with Google and see their own stats, team schedule, roster, and college profile.</div><span class="feat-tag live">Live</span></div>
       <div class="feat-card"><span class="feat-icon">📈</span><div class="feat-title">Budget & Finance</div><div class="feat-desc">Bank balance tracking, income projections, spending tracker by category, season archiving, and a New Season Wizard.</div><span class="feat-tag live">Live</span></div>
       <div class="feat-card"><span class="feat-icon">☁️</span><div class="feat-title">Cloud Sync</div><div class="feat-desc">All your data lives in the cloud. Access your org dashboard from any device. Google SSO — no passwords.</div><span class="feat-tag live">Live</span></div>
+      <div class="feat-card" style="border-left:2px solid rgba(251,146,60,.4)"><span class="feat-icon">🏀</span><div class="feat-title">NP Players</div><div class="feat-desc">Free player profiles with 2K-style ratings, 3D cards, MaxPreps &amp; AAU Passport links, social media, and team roster integration across every NextPlay event.</div><span class="feat-tag live" style="color:#fb923c;background:rgba(251,146,60,.1);border-color:rgba(251,146,60,.3)">Free · No Invite Needed</span></div>
     </div>
   </div>
 </section>
@@ -424,6 +428,83 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
           <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text2);padding-bottom:12px;border-bottom:1px solid var(--border);"><span style="color:var(--purple);">◇</span> Player check-in & digital waivers</div>
           <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text2);padding-bottom:12px;border-bottom:1px solid var(--border);"><span style="color:var(--purple);">◇</span> College coach recruiting view</div>
           <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text2);"><span style="color:var(--purple);">◇</span> Film Room integration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NP PLAYERS -->
+<section id="np-players" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner" style="padding:clamp(60px,8vw,120px) 0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="reveal filmroom-layout">
+      <div>
+        <div style="font-family:var(--font-m);font-size:9px;letter-spacing:3px;color:#fb923c;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#fb923c;animation:blink 2s infinite;display:inline-block;"></span>
+          Free for Every Player
+        </div>
+        <h2 style="font-family:var(--font-d);font-size:clamp(40px,5vw,72px);line-height:.9;letter-spacing:1px;margin-bottom:20px;">
+          YOUR PLAYER<br><span style="color:#fb923c">PASSPORT</span>
+        </h2>
+        <p style="font-size:16px;color:var(--text2);line-height:1.7;margin-bottom:28px;max-width:460px;">
+          Every player in the NextPlay ecosystem gets a free profile. Build your digital basketball identity — link your stats, highlight videos, AAU Passport, and get discovered by coaches at every tournament.
+        </p>
+        <ul style="list-style:none;margin-bottom:32px;">
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text2);display:flex;gap:12px;align-items:flex-start;"><span style="color:#fb923c;flex-shrink:0;margin-top:1px;">◎</span> 2K-style player rating card — your OVR calculated from real season stats</li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text2);display:flex;gap:12px;align-items:flex-start;"><span style="color:#fb923c;flex-shrink:0;margin-top:1px;">◎</span> Link MaxPreps, AAU Passport, Instagram, TikTok, and highlight reels</li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text2);display:flex;gap:12px;align-items:flex-start;"><span style="color:#fb923c;flex-shrink:0;margin-top:1px;">◎</span> Connect to your NextPlay tournament team — roster builds automatically</li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text2);display:flex;gap:12px;align-items:flex-start;"><span style="color:#fb923c;flex-shrink:0;margin-top:1px;">◎</span> Interactive 3D player card — click to flip, shows all your stats on the back</li>
+          <li style="padding:10px 0;font-size:14px;color:var(--text2);display:flex;gap:12px;align-items:flex-start;"><span style="color:#fb923c;flex-shrink:0;margin-top:1px;">◎</span> Coaches can search and add you directly to their team roster</li>
+        </ul>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://np-players.vercel.app" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:#fb923c;color:#000;font-family:var(--font-b);font-weight:800;font-size:14px;text-decoration:none;border-radius:4px;transition:all .2s;" onmouseover="this.style.background='#f97316'" onmouseout="this.style.background='#fb923c'">
+            Create Free Profile →
+          </a>
+          <a href="https://np-players.vercel.app" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border:1px solid rgba(251,146,60,.3);color:#fb923c;font-family:var(--font-b);font-weight:600;font-size:14px;text-decoration:none;border-radius:4px;transition:all .2s;" onmouseover="this.style.borderColor='#fb923c'" onmouseout="this.style.borderColor='rgba(251,146,60,.3)'">
+            View Player Roster
+          </a>
+        </div>
+        <div style="margin-top:14px;font-family:var(--font-m);font-size:10px;color:var(--text3);letter-spacing:1px;">
+          100% free for players · No invite required · Sign in with Google
+        </div>
+      </div>
+      <div>
+        <!-- 2K card mockup -->
+        <div style="position:relative;max-width:380px;margin:0 auto;">
+          <div style="background:linear-gradient(160deg,#0d1420 0%,#04060a 100%);border:1px solid rgba(251,146,60,.3);border-radius:20px;padding:28px 24px;box-shadow:0 0 48px rgba(251,146,60,.15),0 32px 80px rgba(0,0,0,.6);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+              <div>
+                <div style="font-family:var(--font-d);font-size:72px;color:#fb923c;line-height:1;">82</div>
+                <div style="font-family:var(--font-m);font-size:10px;color:var(--text3);letter-spacing:2px;">OVR</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:var(--font-m);font-size:10px;letter-spacing:2px;color:#fb923c;margin-bottom:4px;">SG</div>
+                <div style="font-family:var(--font-m);font-size:10px;color:var(--text3);">#3</div>
+              </div>
+            </div>
+            <div style="height:2px;background:linear-gradient(90deg,rgba(251,146,60,.6),transparent);margin-bottom:20px;"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:20px;background:rgba(255,255,255,.04);border-radius:10px;overflow:hidden;">
+              <div style="padding:10px 6px;background:#080c12;text-align:center;"><div style="font-family:var(--font-d);font-size:20px;color:#f0f4f8;">18.4</div><div style="font-family:var(--font-m);font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px;">PPG</div></div>
+              <div style="padding:10px 6px;background:#080c12;text-align:center;"><div style="font-family:var(--font-d);font-size:20px;color:#f0f4f8;">4.2</div><div style="font-family:var(--font-m);font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px;">RPG</div></div>
+              <div style="padding:10px 6px;background:#080c12;text-align:center;"><div style="font-family:var(--font-d);font-size:20px;color:#f0f4f8;">5.1</div><div style="font-family:var(--font-m);font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px;">APG</div></div>
+              <div style="padding:10px 6px;background:#080c12;text-align:center;"><div style="font-family:var(--font-d);font-size:20px;color:#f0f4f8;">44%</div><div style="font-family:var(--font-m);font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px;">FG%</div></div>
+              <div style="padding:10px 6px;background:#080c12;text-align:center;"><div style="font-family:var(--font-d);font-size:20px;color:#f0f4f8;">1.8</div><div style="font-family:var(--font-m);font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px;">SPG</div></div>
+              <div style="padding:10px 6px;background:#080c12;text-align:center;"><div style="font-family:var(--font-d);font-size:20px;color:#f0f4f8;">0.4</div><div style="font-family:var(--font-m);font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px;">BPG</div></div>
+            </div>
+            <div>
+              <div style="font-size:12px;color:var(--text3);margin-bottom:2px;font-family:var(--font-b);">JAYLEN</div>
+              <div style="font-family:var(--font-d);font-size:28px;color:#f0f4f8;letter-spacing:.5px;">SMITH</div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+              <span style="font-family:var(--font-m);font-size:9px;color:#fb923c;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);padding:3px 9px;border-radius:20px;">📊 MaxPreps</span>
+              <span style="font-family:var(--font-m);font-size:9px;color:#fb923c;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);padding:3px 9px;border-radius:20px;">🪪 AAU Passport</span>
+              <span style="font-family:var(--font-m);font-size:9px;color:#fb923c;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);padding:3px 9px;border-radius:20px;">🏆 Delta Dubs 17U</span>
+            </div>
+          </div>
+          <!-- Archetype badge -->
+          <div style="position:absolute;top:-12px;right:24px;background:#fb923c;color:#000;font-family:var(--font-m);font-size:9px;font-weight:800;letter-spacing:2px;padding:4px 12px;border-radius:20px;">
+            PLAYMAKER
+          </div>
         </div>
       </div>
     </div>
@@ -578,9 +659,20 @@ footer{border-top:1px solid var(--border);padding:32px clamp(20px,5vw,64px);disp
         <span class="app-arrow">›</span>
       </a>
 
+      <!-- NP Players -->
+      <a id="appCard4" class="app-card" href="https://np-players.vercel.app" target="_blank" style="border-color:rgba(251,146,60,.25);">
+        <div class="app-icon-wrap icon-players">🏀</div>
+        <div class="app-info">
+          <div class="app-name" style="color:#fb923c;">NP Players</div>
+          <div class="app-desc">Player profiles, 2K ratings & team rosters</div>
+        </div>
+        <span class="app-badge" style="color:#fb923c;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);">Free</span>
+        <span class="app-arrow">›</span>
+      </a>
+
     </div>
 
-    <div class="modal-note">One Google account · Access depends on your role</div>
+    <div class="modal-note">Coaches & org staff use Google SSO · Players sign up free at NP Players</div>
   </div>
 </div>
 
